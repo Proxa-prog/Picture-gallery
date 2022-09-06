@@ -1,0 +1,23 @@
+.header {
+    .header__logo {
+        width: 64px;
+        height: 64px;
+    }
+    @media (max-width: 1366px) {
+
+    }
+}
+
+.header__logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 34px;
+}
+
+.header__button {
+    background-color: inherit;
+    border: none;
+    padding: 0;
+    margin: 22px 0;
+}
