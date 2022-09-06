@@ -1,5 +1,4 @@
 import { FC } from "react";
-// @ts-ignore
 import Icons from "../../../img/Svg/Sprite/Sprite.svg";
 
 interface IIconProps {
