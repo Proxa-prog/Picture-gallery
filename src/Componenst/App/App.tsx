@@ -7,7 +7,6 @@ import './style.scss';
 function App() {
   const [theme, setTheme] = useState('black');
   const [buttonColor, setButtonColor] = useState('sun');
-  const [logoColor, setlogoColor] = useState('logo_white');
   
   return (
     <div className="App">
@@ -16,8 +15,6 @@ function App() {
         setTheme, 
         buttonColor, 
         setButtonColor,
-        logoColor,
-        setlogoColor
       }}>
         <Page />
       </ThemeContext.Provider>
