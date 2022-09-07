@@ -8,10 +8,6 @@ interface ISelect {
     className: string;
 }
 
-interface IOptiondArray {
-
-}
-
 export const Select: FC<ISelect> = (props) => {
     const {
         name,
@@ -21,10 +17,8 @@ export const Select: FC<ISelect> = (props) => {
 
     return (
         <select
-            placeholder="Name"
             name={name}
             className={className}
-            defaultValue='Name'
         >
             {optionsArray.length !== 0
             ?
