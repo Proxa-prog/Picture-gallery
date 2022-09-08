@@ -1,11 +1,11 @@
-import { IPaintings } from "../types/api/paintings";
+import { getPaintingsAction } from "../redusers/Paintings";
 
 // Получение списка картин
-export const getPaintings = async (paintings: IPaintings[], setPaintings: any) => {
+export const getPaintings = () => async (dispatch: any) => {
   await fetch("https://test-front.framework.team/paintings")
     .then((response) => response.json())
     .then((json) => {
-      const newAuthorsArray = [...paintings, ...json];
-      setPaintings(newAuthorsArray);
-    });
+      dispatch(getPaintingsAction([...json]));
+    })
+    .catch((error) => console.error(error));
 };

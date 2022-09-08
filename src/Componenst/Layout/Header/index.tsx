@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "../../UI/Button";
@@ -16,22 +16,15 @@ import "./style.scss";
 export const Header = () => {
   const dispatch = useDispatch();
   const { theme } = useTypedSelectors(state => state.theme);
-  const [authors, setAuthors] = useState([
-    {
-      name: "Name",
-      value: "default",
-      inactive: true,
-      isHidden: true,
-      isSelected: true,
-    },
-  ]);
+  const { authors } = useTypedSelectors(state => state.authors);
 
   const handlerClick = () => {
     dispatch(changeThemeAction(!theme));
   };
 
   useEffect(() => {
-    getAuthors(authors, setAuthors);
+    // @ts-ignore
+    dispatch(getAuthors(authors));
   }, []);
 
   return (

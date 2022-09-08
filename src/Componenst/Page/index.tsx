@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { getPaintings } from '../../APi/painting';
 import { useTypedSelectors } from '../../hooks/useTypedSelectors';
@@ -9,11 +10,13 @@ import { PaintingList } from '../Layout/PaintingList';
 import './style.scss';
 
 export const Page = () => {
+    const dispatch = useDispatch();
     const { theme } = useTypedSelectors(state => state.theme);
-    const [paintings, setPaintings] = useState([]);
+    const { paintings } = useTypedSelectors(state => state.paintings);
 
     useEffect(() => {
-        getPaintings(paintings, setPaintings);
+        // @ts-ignore
+        dispatch(getPaintings());
     }, [])
     
     return (

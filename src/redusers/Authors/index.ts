@@ -3,13 +3,19 @@ import { IAuthors } from "../../types/api/authors";
 import { IAuthorsAction, IAuthorsArray } from "../../types/type";
 
 const initialState: IAuthorsArray = {
-    authors: [],
+    authors: [{
+        name: "Name",
+        value: "default",
+        inactive: true,
+        isHidden: true,
+        isSelected: true,
+      }]
 }
 
 export const authorsReduser = (state = initialState , action: IAuthorsAction): IAuthorsArray => {
     switch (action.type) {
         case AuthorsAction.GET_AUTHORS:
-            return {authors: action.payload}
+            return {...state, authors: action.payload}
         default:
              return state;
     }
