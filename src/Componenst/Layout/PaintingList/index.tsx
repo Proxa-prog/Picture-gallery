@@ -26,6 +26,12 @@ export const PaintingList: FC<IPaintingList> = (props) => {
                 width='360'
                 height='275'
             />
+            <div className="painting-list__description-wrapper">
+                <h2>{painting.name}</h2 >
+                <p className="painting-list__text-title">Author: <span className="painting-list__text-descriprtion">{painting.authorId}</span></p>
+                <p className="painting-list__text-title">Created: <span className="painting-list__text-descriprtion">{painting.created}</span></p>
+                <p className="painting-list__text-title">Location: <span className="painting-list__text-descriprtion">{painting.locationId}</span></p>
+            </div>
           </li>
         ))}
       </ul>

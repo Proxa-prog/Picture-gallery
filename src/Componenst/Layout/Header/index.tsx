@@ -1,20 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { ThemeContext } from "../../../context";
 import Button from "../../UI/Button";
 import { IconsSVG } from "../../UI/IconsSVG";
 import { Img } from "../../UI/Img";
 import { Select } from "../../UI/Select";
 import { getAuthors } from "../../../APi/authors";
-
 import logo from "../../../img/logo.png";
+
+import { changeThemeAction } from "../../../redusers/Theme";
+import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
 import "./style.scss";
 
 export const Header = () => {
-  // @ts-ignore
-  const { theme, setTheme, buttonColor, setButtonColor } =
-    useContext(ThemeContext);
+  const dispatch = useDispatch();
+  const { theme } = useTypedSelectors(state => state.theme);
   const [authors, setAuthors] = useState([
     {
       name: "Name",
@@ -26,13 +27,7 @@ export const Header = () => {
   ]);
 
   const handlerClick = () => {
-    if (theme === "black") {
-      setTheme("white");
-      setButtonColor("sun_black");
-    } else {
-      setTheme("black");
-      setButtonColor("sun");
-    }
+    dispatch(changeThemeAction(!theme));
   };
 
   useEffect(() => {
@@ -44,13 +39,11 @@ export const Header = () => {
       <div className="header__logo-wrapper">
         <Img src={logo} alt="Логотип" width="68" height="68" />
         <Button
-          width="20"
-          height="20"
           className="header__button"
           onClick={handlerClick}
         >
           <IconsSVG
-            name={buttonColor}
+            name={theme ? 'sun' : 'sun_black'}
             size="20"
             className="header__theme-button"
           />

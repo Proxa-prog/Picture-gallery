@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getPaintings } from '../../APi/painting';
-import { ThemeContext } from '../../context';
+import { useTypedSelectors } from '../../hooks/useTypedSelectors';
 
 import { Header } from '../Layout/Header';
 import { PaintingList } from '../Layout/PaintingList';
@@ -9,8 +9,7 @@ import { PaintingList } from '../Layout/PaintingList';
 import './style.scss';
 
 export const Page = () => {
-    // @ts-ignore
-    const {theme} = useContext(ThemeContext);
+    const { theme } = useTypedSelectors(state => state.theme);
     const [paintings, setPaintings] = useState([]);
 
     useEffect(() => {
@@ -18,7 +17,7 @@ export const Page = () => {
     }, [])
     
     return (
-        <section className={`page__wrapper page__${theme}-theme`}>
+        <section className={`page__wrapper page__${theme ? 'black' : 'white'}-theme`}>
             <Header />
             <PaintingList 
                 paintingsArray={paintings}

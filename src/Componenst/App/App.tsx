@@ -1,23 +1,18 @@
-import { useState } from "react";
-import { ThemeContext } from "../../context";
-import { Page } from "../Page";
+import { Provider } from "react-redux";
 
+import { Page } from "../Page";
+import { store } from "../../store";
+
+import '../../fonts/style.css';
 import './style.scss';
 
 function App() {
-  const [theme, setTheme] = useState('black');
-  const [buttonColor, setButtonColor] = useState('sun');
   
   return (
     <div className="App">
-      <ThemeContext.Provider value={{
-        theme, 
-        setTheme, 
-        buttonColor, 
-        setButtonColor,
-      }}>
+      <Provider store={store}>
         <Page />
-      </ThemeContext.Provider>
+      </Provider>
     </div>
   );
 }
