@@ -4,13 +4,18 @@ import { ThemeAction } from "../constants/ThemeAction";
 import { IAuthors } from "./api/authors";
 import { IPaintings } from "./api/paintings";
 
+export type TOption = {
+    id: number;
+    name: string;
+  };
+
 export interface IAuthorsArray {
-    authors: IAuthors[];
+    authors: TOption[];
 }
 
 export interface IAuthorsAction {
     type: AuthorsAction;
-    payload: IAuthors[];
+    payload: TOption[];
 }
 
 export interface IPaintingsArray {

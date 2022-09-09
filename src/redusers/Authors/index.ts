@@ -1,15 +1,8 @@
 import { AuthorsAction } from "../../constants/AuthorsAction";
-import { IAuthors } from "../../types/api/authors";
 import { IAuthorsAction, IAuthorsArray } from "../../types/type";
 
 const initialState: IAuthorsArray = {
-    authors: [{
-        name: "Name",
-        value: "default",
-        inactive: true,
-        isHidden: true,
-        isSelected: true,
-      }]
+    authors: []
 }
 
 export const authorsReduser = (state = initialState , action: IAuthorsAction): IAuthorsArray => {
@@ -21,4 +14,4 @@ export const authorsReduser = (state = initialState , action: IAuthorsAction): I
     }
 };
 
-export const getAuthorsAction = (payload: IAuthors[]) => ({type: AuthorsAction.GET_AUTHORS, payload});
+export const getAuthorsAction = (payload: any[]) => ({type: AuthorsAction.GET_AUTHORS, payload});
