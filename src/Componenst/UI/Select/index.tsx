@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { Select } from "fwt-internship-uikit";
 
@@ -11,7 +11,7 @@ interface IProps {
     options: TOption[];
     isDarkTheme: boolean;
     value: string;
-    onChange: (author: string, options: TOption[]) => void;
+    onChange: (currentValue: string) => void;
 }
 
 export const SelectWrapper: FC<IProps> = (props) => {
@@ -22,14 +22,19 @@ export const SelectWrapper: FC<IProps> = (props) => {
         value,
         onChange
     } = props;
-    
+
+    const [selectedOption, setSelectedOption] = useState(value);
+
   return (
     <Select
-      disabled={disabled}
-      options={options}
-      isDarkTheme={isDarkTheme}
-      value={value}
-      onChange={(value) => {onChange(value, options)}}
+        disabled={disabled}
+        options={options}
+        isDarkTheme={isDarkTheme}
+        value={selectedOption}
+        onChange={(currentValue) => {
+            setSelectedOption(currentValue);
+            onChange(currentValue);
+        }}
     />
   );
 };

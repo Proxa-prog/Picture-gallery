@@ -7,24 +7,37 @@ import { IconsSVG } from "../../UI/IconsSVG";
 import { Img } from "../../UI/Img";
 import { SelectWrapper } from "../../UI/Select";
 
-import { getPaintings } from "../../../APi/painting";
-import { filteringByAuthors, getAuthors } from "../../../APi/authors";
+import { getAuthors } from "../../../APi/authors";
+import {
+  filteringByAuthors,
+  filteringByLocation,
+  filteringByPaintingName,
+  filteringCreated,
+} from "../../../utils/filtering";
 
 import { changeThemeAction } from "../../../redusers/Theme";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
 import "./style.scss";
-import { TOption } from "../../../types/type";
+import { IPaintings } from "../../../types/api/paintings";
 
 export const Header = () => {
   const dispatch = useDispatch();
   const { theme } = useTypedSelectors((state) => state.theme);
   const { authors } = useTypedSelectors((state) => state.authors);
   const { paintings } = useTypedSelectors((state) => state.paintings);
+  const { locations } = useTypedSelectors((state) => state.locations);
 
   const onClickChangeTheme = () => {
     dispatch(changeThemeAction(!theme));
   };
+
+  const createdArray = paintings.map((painting: IPaintings) => {
+    return {
+      id: painting.id,
+      name: painting.created,
+    };
+  });
 
   useEffect(() => {
     // @ts-ignore
@@ -48,28 +61,55 @@ export const Header = () => {
         <SelectWrapper
           disabled={false}
           isDarkTheme={theme}
-          options={authors}
+          options={paintings}
           value="Name"
-          onChange={(author: string, options: TOption[]) => {filteringByAuthors(dispatch, author, options)}}
+          onChange={(currentValue: string) => {
+            filteringByPaintingName(
+              dispatch, 
+              currentValue, 
+              paintings
+            );
+          }}
         />
-        {/* <SelectWrapper 
+        <SelectWrapper
           disabled={false}
           isDarkTheme={theme}
           options={authors}
           value="Author"
+          onChange={(currentValue: string) => {
+            filteringByAuthors(
+              dispatch, 
+              currentValue, 
+              authors);
+            
+          }}
         />
-        <SelectWrapper 
+        <SelectWrapper
           disabled={false}
           isDarkTheme={theme}
-          options={authors}
+          options={locations}
           value="Location"
+          onChange={(currentValue: string) => {
+            filteringByLocation(
+              dispatch, 
+              currentValue, 
+              locations
+            );
+          }}
         />
-        <SelectWrapper 
+        <SelectWrapper
           disabled={false}
           isDarkTheme={theme}
-          options={authors}
+          options={createdArray}
           value="Created"
-        /> */}
+          onChange={(currentValue: string) => {
+            filteringCreated(
+              dispatch, 
+              currentValue, 
+              createdArray
+            );
+          }}
+        />
       </div>
     </section>
   );
