@@ -32,10 +32,7 @@ export const filteringCreated = (dispatch: any, created: string, paintings: TOpt
     let url: string = '';
 
     paintings.forEach((item: TOption) => {
-      console.log(created, item.name)
-
       if (created === item.name) {
-        console.log(created, item.name)
         url = `?created=${item.name}`;
 
         return

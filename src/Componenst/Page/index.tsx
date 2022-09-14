@@ -22,7 +22,7 @@ export const Page = () => {
     // @ts-ignore
     dispatch(getPaintings(''));
     // @ts-ignore
-    dispatch(getCurrentPaintings(''));
+    dispatch(getCurrentPaintings('?_page=1&_limit=12'));
     // @ts-ignore
     dispatch(getLocations());
   }, []);
