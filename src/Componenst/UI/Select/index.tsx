@@ -1,43 +1,40 @@
-import { nanoid } from "nanoid";
-import { FC } from "react";
-import { Options } from "../Options";
+import { FC, useState } from "react";
 
-interface ISelect {
-    name: string;
-    optionsArray?: any;
-    className: string;
+import { Select } from "fwt-internship-uikit";
+
+import { TOption } from "../../../types/type";
+
+import './style.scss';
+
+interface IProps {
+    disabled: boolean;
+    options: TOption[];
+    isDarkTheme: boolean;
+    value: string;
+    onChange: (currentValue: string) => void;
 }
 
-export const Select: FC<ISelect> = (props) => {
+export const SelectWrapper: FC<IProps> = (props) => {
     const {
-        name,
-        optionsArray,
-        className,
+        disabled,
+        options,
+        isDarkTheme,
+        value,
+        onChange
     } = props;
 
-    return (
-        <select
-            name={name}
-            className={className}
-        >
-            {optionsArray.length !== 0
-            ?
-            optionsArray.map((option: any) => {
-                const optionId = nanoid();
+    const [selectedOption, setSelectedOption] = useState(value);
 
-                return (
-                    <Options
-                        name={option.name}
-                        key={optionId}
-                        value={option.value}
-                        inactive={option.inactive}
-                        isHidden={option.isHidden}
-                        isSelected={option.isSelected}
-                    />)
-            })
-            :
-            null
-            }
-        </select>
-    )
+  return (
+    <Select
+        disabled={disabled}
+        options={options}
+        isDarkTheme={isDarkTheme}
+        value={selectedOption}
+        onChange={(currentValue) => {
+            setSelectedOption(currentValue);
+            onChange(currentValue);
+        }}
+    />
+  );
 };

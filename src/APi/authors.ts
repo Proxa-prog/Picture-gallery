@@ -1,11 +1,12 @@
-import { IAuthors } from "../types/api/authors";
+import { getAuthorsAction } from "../redusers/Authors";
 
 // Получение списка авторов
-export const getAuthors = async (authors: IAuthors[], setAuthors: any) => {
+export const getAuthors = (authors: any) => async (dispatch: any) => {
   await fetch("https://test-front.framework.team/authors")
     .then((response) => response.json())
     .then((json) => {
-      const newAuthorsArray = [...authors, ...json];
-      setAuthors(newAuthorsArray);
-    });
+      dispatch(getAuthorsAction([...authors, ...json]));
+    })
+    .catch((error) => console.error(error));
 };
+ 

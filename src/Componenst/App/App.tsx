@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { ThemeContext } from "../../context";
-import { Page } from "../Page";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import './style.scss';
+import { Page } from "../Page";
+import { store } from "../../store";
+
+import "../../fonts/style.css";
+import "./style.scss";
 
 function App() {
-  const [theme, setTheme] = useState('black');
-  const [buttonColor, setButtonColor] = useState('sun');
-  
   return (
     <div className="App">
-      <ThemeContext.Provider value={{
-        theme, 
-        setTheme, 
-        buttonColor, 
-        setButtonColor,
-      }}>
-        <Page />
-      </ThemeContext.Provider>
+      <Provider store={store}>
+      <Page />
+        {/* <BrowserRouter>
+          <Routes>
+            <Route path="\" element={<Page />} />
+          </Routes>
+        </BrowserRouter> */}
+      </Provider>
     </div>
   );
 }
