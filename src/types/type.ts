@@ -1,5 +1,6 @@
 import { AuthorsAction } from "../constants/AuthorsAction";
 import { locationsAction } from "../constants/LocationsAction";
+import { paginationType } from "../constants/PaginationAction";
 import { currentPaintingsAction, PaintingsAction } from "../constants/PaintingsAction";
 import { ThemeAction } from "../constants/ThemeAction";
 import { IPaintings } from "./api/paintings";
@@ -57,4 +58,14 @@ export interface ILocationsArray {
 export interface ILocationsAction {
     type: locationsAction;
     payload: TOption[];
+}
+
+export interface IPagination {
+    pageNumber: number;
+    numberOfPages: number;
+}
+
+export interface IPaginationAction {
+    type: paginationType;
+    payload: number;
 }

@@ -1,0 +1,1 @@
+export const PAINTINGS_LIMIT = 12;

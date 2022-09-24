@@ -1,4 +1,4 @@
-import { getAuthorsAction } from "../redusers/Authors";
+import { getAuthorsAction } from "../store/reduсers/Authors";
 
 // Получение списка авторов
 export const getAuthors = (authors: any) => async (dispatch: any) => {

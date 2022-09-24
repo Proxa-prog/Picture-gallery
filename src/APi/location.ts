@@ -1,4 +1,4 @@
-import { getLocationsAction } from "../redusers/Location";
+import { getLocationsAction } from "../store/reduсers/Location";
 import { ILocations, TOption } from "../types/type";
 
 // Получение списка локаций
