@@ -1,72 +1,66 @@
-import { getCurrentPaintingsAction } from "../redusers/CurrentPaintingsReduser";
-import { IPaintings } from "../types/api/paintings";
-import { TOption } from "../types/type";
+import { PAINTINGS_LIMIT } from "../constants/PaintingsLimit";
+import { getCurrentPaintingsAction } from "../store/reduсers/CurrentPaintings";
 
-  // Получение списка картин с фильтром
-  export const getCurrentPaintings = (url: string) => async (dispatch: any) => {
-    await fetch(`https://test-front.framework.team/paintings${url}`)
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch(getCurrentPaintingsAction([...json]));
-      })
-      .catch((error) => console.error(error));
-  };
+interface IData {
+  method: string,
+  url: string,
+  query: string,
+}
 
-// Фильтрация по локациям
-export const filteringByLocation = (dispatch: any, location: string, locations: TOption[]) => {
-    let url: string = '';
+const fetchData = async (data: IData, dispatch: any, query: string) => {
+  const {
+    method,
+    url,
+  } = data;
+  console.log(url + query)
 
-    locations.forEach((item: TOption) => {
-      if (location === item.name) {
-        url = `?locationId=${item.id}`;
+  if (method === "GET") {
+    const response = await fetch(`${url + query}`);
+    const result = await response.json();
 
-        return
+    dispatch(getCurrentPaintingsAction(result));
+  }
+};
+
+// Получение списка картин с фильтром
+export const getCurrentPaintings = (data: any) => async (dispatch: any) => {
+    const {
+      params,
+      query = "",
+      isPagination = false,
+    } = data;
+
+    try {
+      const urlTemplate = "?" + query + "=";
+
+      // Запрос при пагинации
+      if (isPagination) {
+        await fetchData(data, dispatch, query);
+
+        return;
       }
-    });
+      
+      // Запрос всех картин при первоначальной загрузке
+      if (params === undefined) {
+        await fetchData(data, dispatch, "?_limit=" + PAINTINGS_LIMIT);
 
-    dispatch(getCurrentPaintings(url));
-  };
-
-// Фильтрация по локациям
-export const filteringCreated = (dispatch: any, created: string, paintings: TOption[]) => {
-    let url: string = '';
-
-    paintings.forEach((item: TOption) => {
-      if (created === item.name) {
-        url = `?created=${item.name}`;
-
-        return
+        return;
       }
-    });
 
-    dispatch(getCurrentPaintings(url));
-  };
-  
-  // Фильтрация по названиям
-  export const filteringByPaintingName = (dispatch: any, paintingName: string, options: IPaintings[]) => {
-    let url: string = '';
-  
-    options.forEach((option: IPaintings) => {
-      if (paintingName === option.name) {
-        url = `?id=${option.id}`;
+      // Запрос для поля Created (требуется name)
+      if (query === "created" && params !== undefined) {
+        await fetchData(data, dispatch, urlTemplate + params.name);
+        
+        return;
       }
-    })
-  
-    dispatch(getCurrentPaintings(url));
-  };
-  
-  // Фильтрация по авторам
-  export const filteringByAuthors = (dispatch: any, author: string, options: TOption[]) => {
-    let url = '?authorId=';
-  
-    options.forEach((option: TOption) => {
-      if (option.name === author) {
-        url = url + option.id;
-  
-        return
+
+      // Запрос для полей, где требуется id
+      if (params !== undefined) {
+        await fetchData(data, dispatch, urlTemplate + params.id);
+        
+        return;
       }
-    });
-  
-    dispatch(getCurrentPaintings(url));
+    } catch (error) {
+      console.error(error);
+    }
   };
-  

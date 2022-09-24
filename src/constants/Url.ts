@@ -1,0 +1,1 @@
+export const url = 'https://test-front.framework.team/paintings';
