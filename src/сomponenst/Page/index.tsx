@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -18,11 +17,18 @@ export const Page = () => {
   const { theme } = useTypedSelectors((state) => state.theme);
   const { currentPaintings } = useTypedSelectors((state) => state.currentPaintings);
 
+  const paramsObj = {
+    _page: '1',
+    _limit: '12',
+  };
+  const searchParams = new URLSearchParams(paramsObj);
+
+
   useEffect(() => {
     // @ts-ignore
     dispatch(getPaintings(""));
     // @ts-ignore
-    dispatch(getCurrentPaintings("?_limit=12"));
+    dispatch(getCurrentPaintings(searchParams));
     // @ts-ignore
     dispatch(getLocations());
   }, []);

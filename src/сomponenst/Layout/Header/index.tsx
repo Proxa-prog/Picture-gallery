@@ -44,7 +44,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <section className="page__header header">
+    <section className="header">
       <div className="header__logo-wrapper">
         <Button className="header__logo-button"
           onClick={() => (onClickGoFirstPage(dispatch, paintings))}
