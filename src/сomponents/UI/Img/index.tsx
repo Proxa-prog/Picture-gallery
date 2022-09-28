@@ -1,3 +1,4 @@
+import React from "react";
 import { FC } from "react";
 
 interface IImg {
@@ -18,7 +19,7 @@ export const Img: FC<IImg> = (props) => {
     } = props;
 
     return (
-        <img 
+        <img
             src={src}
             alt={alt}
             width={width}

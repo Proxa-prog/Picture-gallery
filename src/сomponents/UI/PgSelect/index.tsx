@@ -2,18 +2,15 @@ import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { Select } from "fwt-internship-uikit";
-import { url } from "../../../constants/Url";
 
 import { TOption } from "../../../types/type";
-import { getCurrentPaintings } from "../../../utils/filtering";
+
+import { getParams } from "../../../utils/getParams";
+import { createParams } from "../../../utils/createParams";
+import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
+import { getPageOfNumberAction } from "../../../store/reduсers/pagination";
 
 import "./style.scss";
-import { getParams } from "../../../utils/getParams";
-import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
-import {
-  getPageOfNumberAction,
-  paginationAction,
-} from "../../../store/reduсers/Pagination";
 
 interface IProps {
   name: string;
@@ -25,7 +22,7 @@ interface IProps {
 }
 
 export const PgSelect: FC<IProps> = (props) => {
-  const { 
+  const {
     name,
     disabled,
     options,
@@ -37,21 +34,31 @@ export const PgSelect: FC<IProps> = (props) => {
   const dispatch = useDispatch();
   const [selectedValue, setSelectedValue] = useState(value);
   const { currentPaintings } = useTypedSelectors((state) => state.currentPaintings);
+  const getNumberOfPages = Math.ceil(currentPaintings.length / 12);
 
   useEffect(() => {
     if (!onChangeValueFetch) {
       return;
     }
 
-    dispatch(
-      onChangeValueFetch({
-        method: "GET",
-        url: url,
-        params: getParams(options, selectedValue),
-        query: name,
-      })
-    );
-    dispatch(getPageOfNumberAction(Math.ceil(currentPaintings.length / 12)));
+    const selectObj = getParams(options, selectedValue);
+    if (selectObj !== undefined) {
+      let paramsObj;
+
+      if (name === 'created') {
+        paramsObj = {
+          [name]: `${selectObj?.name}`,
+        };
+      } else {
+        paramsObj = {
+          [name]: `${selectObj?.id}`,
+        };
+      }
+
+      dispatch(onChangeValueFetch(createParams(paramsObj)));
+    }
+
+    dispatch(getPageOfNumberAction(getNumberOfPages));
   }, [selectedValue]);
 
   return (

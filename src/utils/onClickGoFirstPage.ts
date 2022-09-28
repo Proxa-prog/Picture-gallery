@@ -1,17 +1,17 @@
-import { url } from "../constants/Url";
-import { getPageOfNumberAction, paginationAction } from "../store/reduсers/Pagination";
+import { PAINTINGS_LIMIT } from "../constants/PaintingsLimit";
+import { getPageOfNumberAction, paginationAction } from "../store/reduсers/pagination";
 import { IPaintings } from "../types/api/paintings";
+import { createParams } from "./createParams";
 import { getCurrentPaintings } from "./filtering";
-import { getParams } from "./getParams";
 
 export const onClickGoFirstPage = (dispatch: any, paintings: IPaintings[]) => {
+  const getPageOfNumber = Math.ceil(Math.ceil(paintings.length / 12));
+
     // @ts-ignore
-    dispatch(getCurrentPaintings({
-      method: "GET",
-      url: url,
-      params: getParams(),
-      query: "?_page=1_limit=12",
-    }));
+    dispatch(getCurrentPaintings(createParams({
+      _page: '1',
+      _limit: `${PAINTINGS_LIMIT}`,
+    })));
     dispatch(paginationAction(1));
-    dispatch(getPageOfNumberAction(Math.ceil(paintings.length / 12)));
+    dispatch(getPageOfNumberAction(getPageOfNumber));
   };

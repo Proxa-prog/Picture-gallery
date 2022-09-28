@@ -1,23 +1,30 @@
-import { getLocationsAction } from "../store/reduсers/Location";
+import axios from "axios";
+import { MAIN_URL } from "../constants/links";
+import { getLocationsAction } from "../store/reduсers/location";
 import { ILocations, TOption } from "../types/type";
+
+const fetchLocations = async (dispatch: any) => {
+  const response = await axios.get(`${MAIN_URL}/locations`);
+
+  let newLocations: TOption[] = [];
+
+  response.data.forEach((location: ILocations) => {
+    newLocations = [
+      ...newLocations,
+      {
+        id: location.id,
+        name: location.location,
+      },
+    ];
+  });
+  dispatch(getLocationsAction([...newLocations]));
+};
 
 // Получение списка локаций
 export const getLocations = () => async (dispatch: any) => {
-  await fetch("https://test-front.framework.team/locations")
-    .then((response) => response.json())
-    .then((json) => {
-      let newLocations: TOption[] = [];
-
-      json.forEach((location: ILocations) => {
-        newLocations = [
-          ...newLocations,
-          {
-            id: location.id,
-            name: location.location,
-          },
-        ];
-      });
-      dispatch(getLocationsAction([...newLocations]));
-    })
-    .catch((error) => console.error(error));
+  try {
+    fetchLocations(dispatch);
+  } catch (error) {
+    console.error(error);
+  }
 };

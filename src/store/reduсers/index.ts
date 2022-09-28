@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
+import { authorsReducer } from "./authors";
+import { currentPaintingsReducer } from "./currentPaintings";
 
-import { authorsReducer } from "./Authors";
-import { currentPaintingsReducer } from "./CurrentPaintings";
-import { locationReducer } from "./Location";
-import { paginationReducer } from "./Pagination";
-import { paintingsReducer } from "./Paintings";
-import { themeReducer } from "./Theme";
+import { locationReducer } from "./location";
+import { paginationReducer } from "./pagination";
+import { paintingsReducer } from "./paintings";
+import { themeReducer } from "./theme";
 
 export const rootReducer = combineReducers({
     authors: authorsReducer,
