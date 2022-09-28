@@ -1,11 +1,13 @@
-import { getAuthorsAction } from "../store/reduсers/Authors";
+import axios from "axios";
+import { MAIN_URL } from "../constants/links";
+import { getAuthorsAction } from "../store/reduсers/authors";
 
-const fetchAuthors =async (authors: any, dispatch: any) => {
-  const response = await fetch("https://test-front.framework.team/authors");
-  const result = await response.json();
-
-  dispatch(getAuthorsAction([...authors, ...result]));
-}
+const fetchAuthors = (authors: any, dispatch: any) => {
+  return async () => {
+    const response = await axios.get(`${MAIN_URL}/authors`);
+    dispatch(getAuthorsAction([...authors, ...response.data]));
+  };
+};
 
 // Получение списка авторов
 export const getAuthors = (authors: any) => async (dispatch: any) => {
@@ -15,4 +17,3 @@ export const getAuthors = (authors: any) => async (dispatch: any) => {
     console.error(error);
   }
 };
- 

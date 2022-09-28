@@ -1,4 +1,5 @@
-import { FC } from "react";
+import React from "react";
+import { MAIN_URL } from "../../../constants/links";
 
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
@@ -8,22 +9,18 @@ import { Img } from "../../UI/Img";
 
 import "./style.scss";
 
-interface IPaintingList {
-  paintingsArray: IPaintings[];
-}
-
-export const PaintingList: FC<IPaintingList> = (props) => {
-  const { paintingsArray } = props;
+export const PaintingList = () => {
   const { locations } = useTypedSelectors((state) => state.locations);
   const { authors } = useTypedSelectors((state) => state.authors);
+  const { currentPaintings } = useTypedSelectors((state) => state.currentPaintings);
 
   return (
     <section className="painting-list">
       <ul className="painting-list__list">
-        {paintingsArray.map((painting: IPaintings) => (
+        {currentPaintings.map((painting: IPaintings) => (
           <li className="painting-list__item" key={painting.id}>
             <Img
-              src={`https://test-front.framework.team${painting.imageUrl}`}
+              src={`${MAIN_URL}${painting.imageUrl}`}
               alt={painting.name}
               width="360"
               height="275"
@@ -31,19 +28,19 @@ export const PaintingList: FC<IPaintingList> = (props) => {
             <div className="painting-list__description-wrapper">
               <h2>{painting.name}</h2>
               <p className="painting-list__text-title">
-                Author:{" "}
+                Author:{` `}
                 <span className="painting-list__text-descriprtion">
                   {getItemById(authors, painting.authorId)}
                 </span>
               </p>
               <p className="painting-list__text-title">
-                Created:{" "}
+                Created:{` `}
                 <span className="painting-list__text-descriprtion">
                   {painting.created}
                 </span>
               </p>
               <p className="painting-list__text-title">
-                Location:{" "}
+                Location:{` `}
                 <span className="painting-list__text-descriprtion">
                   {getItemById(locations, painting.locationId)}
                 </span>

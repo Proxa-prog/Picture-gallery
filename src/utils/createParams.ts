@@ -1,5 +1,5 @@
 export const createParams = (paramsObj: any) => {
-      const searchParams = new URLSearchParams(paramsObj);
+  const searchParams = new URLSearchParams(paramsObj);
 
-      return searchParams;
-}
+  return searchParams;
+};

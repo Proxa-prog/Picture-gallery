@@ -5,12 +5,12 @@ import { Pagination } from "fwt-internship-uikit";
 import { getCurrentPaintings } from "../../utils/filtering";
 import { createParams } from "../../utils/createParams";
 
-import { useTypedSelectors } from "../../hooks/useTypedSelectors";
-import { paginationAction } from "../../store/reduсers/Pagination";
 import { PAINTINGS_LIMIT } from "../../constants/PaintingsLimit";
 
-import "./style.scss";
+import { useTypedSelectors } from "../../hooks/useTypedSelectors";
+import { paginationAction } from "../../store/reduсers/pagination";
 
+import "./style.scss";
 
 export const PaginationWrapper = () => {
   const dispatch = useDispatch();
@@ -26,10 +26,11 @@ export const PaginationWrapper = () => {
         dispatch(paginationAction(currentValue));
 
         // @ts-ignore
-        dispatch(getCurrentPaintings(createParams({
-          _page: `${currentValue}`,
-          _limit: `${PAINTINGS_LIMIT}`,
-        })));
+        dispatch(getCurrentPaintings(
+          createParams({
+            _page: `${currentValue}`,
+            _limit: `${PAINTINGS_LIMIT}`,
+          })));
       }}
     />
   );

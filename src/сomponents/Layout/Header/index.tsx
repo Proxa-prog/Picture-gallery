@@ -1,24 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "../../UI/Button";
-import logo from "../../../images/logo.png";
 import { IconsSVG } from "../../UI/IconsSVG";
+import logo from "../../../images/logo.png";
 import { Img } from "../../UI/Img";
 import { PgSelect } from "../../UI/PgSelect";
 
 import { IPaintings } from "../../../types/api/paintings";
-import { getAuthors } from "../../../APi/authors";
-import {
-  getCurrentPaintings,
-} from "../../../utils/filtering";
+import { getAuthors } from "../../../API/authors";
+import { getCurrentPaintings } from "../../../utils/filtering";
 import { onClickGoFirstPage } from "../../../utils/onClickGoFirstPage";
 
-import { changeThemeAction } from "../../../store/reduсers/Theme";
+import { changeThemeAction } from "../../../store/reduсers/theme";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
 
 import "./style.scss";
-
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -30,13 +27,17 @@ export const Header = () => {
   const onClickChangeTheme = () => {
     dispatch(changeThemeAction(!theme));
   };
+  console.log("+++++");
 
-  const createdArray = paintings.map((painting: IPaintings) => {
-    return {
-      id: painting.id,
-      name: painting.created,
-    };
-  });
+  const createdArray = useMemo(() => {
+    let newArray;
+    return newArray = paintings.map((painting: IPaintings) => {
+      return {
+        id: painting.id,
+        name: painting.created,
+      };
+    });
+  }, [paintings]);
 
   useEffect(() => {
     // @ts-ignore
@@ -46,15 +47,11 @@ export const Header = () => {
   return (
     <section className="header">
       <div className="header__logo-wrapper">
-        <Button className="header__logo-button"
-          onClick={() => (onClickGoFirstPage(dispatch, paintings))}
+        <Button
+          className="header__logo-button"
+          onClick={() => onClickGoFirstPage(dispatch, paintings)}
         >
-          <Img 
-            src={logo}
-            alt="Логотип"
-            width="68"
-            height="68"
-          />
+          <Img src={logo} alt="Логотип" width="68" height="68" />
         </Button>
 
         <Button className="header__button" onClick={onClickChangeTheme}>
@@ -84,7 +81,7 @@ export const Header = () => {
           onChangeValueFetch={getCurrentPaintings}
         />
         <PgSelect
-          name="locationId" 
+          name="locationId"
           disabled={false}
           isDarkTheme={theme}
           options={locations}

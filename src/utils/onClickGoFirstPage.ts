@@ -1,5 +1,5 @@
 import { PAINTINGS_LIMIT } from "../constants/PaintingsLimit";
-import { getPageOfNumberAction, paginationAction } from "../store/reduсers/Pagination";
+import { getPageOfNumberAction, paginationAction } from "../store/reduсers/pagination";
 import { IPaintings } from "../types/api/paintings";
 import { createParams } from "./createParams";
 import { getCurrentPaintings } from "./filtering";

@@ -6,13 +6,11 @@ import { Select } from "fwt-internship-uikit";
 import { TOption } from "../../../types/type";
 
 import { getParams } from "../../../utils/getParams";
+import { createParams } from "../../../utils/createParams";
 import { useTypedSelectors } from "../../../hooks/useTypedSelectors";
-import {
-  getPageOfNumberAction,
-} from "../../../store/reduсers/Pagination";
+import { getPageOfNumberAction } from "../../../store/reduсers/pagination";
 
 import "./style.scss";
-import { createParams } from "../../../utils/createParams";
 
 interface IProps {
   name: string;
@@ -24,7 +22,7 @@ interface IProps {
 }
 
 export const PgSelect: FC<IProps> = (props) => {
-  const { 
+  const {
     name,
     disabled,
     options,
@@ -46,7 +44,7 @@ export const PgSelect: FC<IProps> = (props) => {
     const selectObj = getParams(options, selectedValue);
     if (selectObj !== undefined) {
       let paramsObj;
-      
+
       if (name === 'created') {
         paramsObj = {
           [name]: `${selectObj?.name}`,
@@ -56,7 +54,7 @@ export const PgSelect: FC<IProps> = (props) => {
           [name]: `${selectObj?.id}`,
         };
       }
-      
+
       dispatch(onChangeValueFetch(createParams(paramsObj)));
     }
 

@@ -1,13 +1,14 @@
-import { getPageOfNumberAction } from "../store/reduсers/Pagination";
-import { getPaintingsAction } from "../store/reduсers/Paintings";
+import axios from "axios";
+import { MAIN_PAINTINGS_URL } from "../constants/links";
+import { getPageOfNumberAction } from "../store/reduсers/pagination";
+import { getPaintingsAction } from "../store/reduсers/paintings";
 import { howManyPages } from "../utils/getNumberOfPages";
 
 const fetchPaintings = async (url: string, dispatch: any) => {
-  const response = await fetch(`https://test-front.framework.team/paintings${url}`);
-  const result = await response.json();
+  const response = await axios.get(`${MAIN_PAINTINGS_URL}${url}`);
 
-  dispatch(getPaintingsAction([...result]));
-  dispatch(getPageOfNumberAction(howManyPages(result)));
+  dispatch(getPaintingsAction([...response.data]));
+  dispatch(getPageOfNumberAction(howManyPages(response.data)));
 };
 
 // Получение списка картин

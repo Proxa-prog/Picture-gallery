@@ -27,15 +27,9 @@
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  &:hover .Select__title {
-    animation: marquee 3.5s infinite linear;
-  }
   &--open {
     border-radius: 8px 8px 0 0;
-    height: 345px;
     padding-top: 15px;
-    overflow: hidden;
     justify-content: flex-start;
   }
   &--dark {
@@ -44,7 +38,7 @@
     background: #464646;
   }
   &__title {
-    width: 220px;
+    width: 76%;
     word-break: break-all;
     margin: 0 0 0 15px;
     overflow: hidden;
@@ -76,7 +70,7 @@
   &__option {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     width: calc(100%);
     box-sizing: border-box;
@@ -110,7 +104,7 @@
     width: 21vw;
 
     &__title {
-      width: auto;
+      width: 73%;
     }
   }
 
