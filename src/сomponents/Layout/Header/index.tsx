@@ -8,7 +8,6 @@ import { Img } from "../../UI/Img";
 import { PgSelect } from "../../UI/PgSelect";
 
 import { IPaintings } from "../../../types/api/paintings";
-import { getAuthors } from "../../../API/authors";
 import { getCurrentPaintings } from "../../../utils/filtering";
 import { onClickGoFirstPage } from "../../../utils/onClickGoFirstPage";
 
@@ -37,11 +36,6 @@ export const Header = () => {
       };
     });
   }, [paintings]);
-
-  useEffect(() => {
-    // @ts-ignore
-    dispatch(getAuthors(authors));
-  }, []);
 
   return (
     <section className="header">

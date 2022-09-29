@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
+import { getAuthors } from "../../API/authors";
 import { getLocations } from "../../API/location";
+
 import { getPaintings } from "../../API/painting";
 import { useTypedSelectors } from "../../hooks/useTypedSelectors";
 import { getCurrentPaintings } from "../../utils/filtering";
@@ -16,6 +17,7 @@ import "./style.scss";
 export const Page = () => {
   const dispatch = useDispatch();
   const { theme } = useTypedSelectors((state) => state.theme);
+  const { authors } = useTypedSelectors((state) => state.authors);
 
   const paramsObj = {
     _page: "1",
@@ -30,6 +32,9 @@ export const Page = () => {
     dispatch(getCurrentPaintings(searchParams));
     // @ts-ignore
     dispatch(getLocations());
+        // @ts-ignore
+
+    dispatch(getAuthors(authors));
   }, []);
 
   return (
