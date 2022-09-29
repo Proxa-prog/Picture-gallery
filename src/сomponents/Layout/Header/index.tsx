@@ -27,7 +27,6 @@ export const Header = () => {
   const onClickChangeTheme = () => {
     dispatch(changeThemeAction(!theme));
   };
-  console.log("+++++");
 
   const createdArray = useMemo(() => {
     let newArray;
