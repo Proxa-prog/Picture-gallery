@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
+
 import { authorsReducer } from "./authors";
 import { currentPaintingsReducer } from "./currentPaintings";
-
 import { locationReducer } from "./location";
 import { paginationReducer } from "./pagination";
 import { paintingsReducer } from "./paintings";
